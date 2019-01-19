@@ -29,7 +29,7 @@ class RotatingFileNameHandler(logging.handlers.RotatingFileHandler):
                                       datefmt="%Y-%m-%d %I:%M:%S %p")
 
         # set filename by the name of scripts
-        logPath = logPath + "/" + filename.split('.')[0] + ".log"
+        logPath = logPath + "/" + filename.split('.')[-2] + ".log"
 
         # please set the maxBytes by yourself
         # it will backup three files and delete the oldest one when create a new one
@@ -86,6 +86,10 @@ import logging.config
 import logging_config
 from logging_config import RotatingFileNameHandler
 
+# set logging level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+LEVEL = "INFO"
+LOGGING = logging_config.LOGGING
+LOGGING["root"]["level"] = LOGGING["handlers"]["default"]["level"] = LEVEL
 logging.config.dictConfig(logging_config.LOGGING)
 
 # create logger
@@ -98,6 +102,13 @@ logger.info("info message")
 logger.warn("warn message")
 logger.error("error message")
 logger.critical("critical message")
+
+
+```
+you can set logging level at
+
+```python
+LEVEL = "INFO"
 ```
 
 test output from [testLogger.py](./testLogger.py)
@@ -107,4 +118,15 @@ test output from [testLogger.py](./testLogger.py)
 2018-06-27 03:58:15 PM - PID: 68496 - WARNING - testLogger.py - warn message
 2018-06-27 03:58:15 PM - PID: 68496 - ERROR - testLogger.py - error message
 2018-06-27 03:58:15 PM - PID: 68496 - CRITICAL - testLogger.py - critical message
+```
+if you set logging level as "DEBUG"
+
+```python
+LEVEL = "DEBUG"
+```
+the output will be like
+
+```
+2019-01-19 03:58:15 PM - PID: 68496 - ERROR - testLogger.py - error message
+2019-01-19 03:58:15 PM - PID: 68496 - CRITICAL - testLogger.py - critical message
 ```
