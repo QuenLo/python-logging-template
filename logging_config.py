@@ -3,7 +3,7 @@
 """
 Created on 2018 Jun.
 
-@author: huanglipang
+@author: huanglipang, cyuanhengluo
 
 logging config doc:
 https://docs.python.org/2/library/logging.config.html
@@ -25,7 +25,7 @@ class RotatingFileNameHandler(logging.handlers.RotatingFileHandler):
                                       datefmt="%Y-%m-%d %I:%M:%S %p")
 
         # set filename by the name of scripts
-        logPath = logPath + "/" + filename.split('.')[0] + ".log"
+        logPath = logPath + "/" + filename.split('.')[-2] + ".log"
 
         # please set the maxBytes by yourself
         # it will backup three files and delete the oldest one when create a new one
